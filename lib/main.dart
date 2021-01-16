@@ -18,17 +18,23 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Home(),
+      // These delegates make sure that the localization data for the proper language is loaded
       localizationsDelegates: [
+        // A class which loads the translations from JSON files
         AppLocale.delegate,
+        // Built-in localization of basic text for Material widgets
         GlobalMaterialLocalizations.delegate,
-        //defines the default text direction, either left-to-right or right-to-left, for the widgets library.
+        // Built-in localization for text direction LTR/RTL
         GlobalWidgetsLocalizations.delegate,
       ],
+      // List all of the app's supported locales here
       supportedLocales: [
         Locale('en', ''),
         Locale('ar', ''),
       ],
+      // Returns a locale which will be used by the app
       localeResolutionCallback: (currentLang, supportLang) {
+        // Check if the current device locale is supported
         if (currentLang != null) {
           for (Locale locale in supportLang) {
             if (locale.languageCode == currentLang.languageCode) {
@@ -36,6 +42,8 @@ class MyApp extends StatelessWidget {
             }
           }
         }
+        // If the locale of the device is not supported, use the first one
+        // from the list (English, in this case).
         return supportLang.first;
       },
     );
